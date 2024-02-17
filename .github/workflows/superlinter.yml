@@ -1,25 +1,17 @@
-name: Super-Linter
+name: Lint Codebase
 
 on:
-    pull_request:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    super-linter:
-        runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-latest
 
-        permissions:
-            contents: read
-            packages: read
-            statuses: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Set up Super-Linter
-              uses: github/super-linter@v3
-              env:
-                  VALIDATE_ALL_CODEBASE: "false"
-                  DEFAULT_BRANCH: "main"
+    - name: Run Super-Linter
+      uses: super-linter/super-linter@v6.1.1
